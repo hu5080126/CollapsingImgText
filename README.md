@@ -69,15 +69,15 @@ The library use in AppBarLayout, extends RelativeLayout
 ```
 ### Xml Attributes
 ```
-    app:title_id="@+id/test_title" //provide a title that is fixed at the top
-    app:text_id="@+id/test_text" //provide a text view that is offset and zoom
-    app:text_scale="0.6"   //The final size of the text
-    app:text_margin_left="50dp" //The text view final moving to the left margin of title
-    app:text_margin_top="10dp" //The text view final moving to the top margin of title
-    app:img_id="@+id/test_img" //provide a img view that is offset and zoom
-    app:img_scale="0.6" //The final size of the img
-    app:img_margin_left="10dp" //The text view final moving to the left margin of img
-    app:img_margin_top="10dp" //The text view final moving to the top margin of img
+    app:title_id="@+id/test_title"  //provide a title that is fixed at the top
+    app:text_id="@+id/test_text"    //provide a text view that is offset and zoom
+    app:text_scale="0.6"            //The final size of the text
+    app:text_margin_left="50dp"     //The text view final moving to the left margin of title
+    app:text_margin_top="10dp"      //The text view final moving to the top margin of title
+    app:img_id="@+id/test_img"      //provide a img view that is offset and zoom
+    app:img_scale="0.6"             //The final size of the img
+    app:img_margin_left="10dp"      //The text view final moving to the left margin of img
+    app:img_margin_top="10dp"       //The text view final moving to the top margin of img
 ```
 if you set  android:fitsSystemWindows="true", you may be need invoke following method 
 ```
