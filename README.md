@@ -84,4 +84,7 @@ if you set  android:fitsSystemWindows="true", you may be need invoke following m
     setTextTitleMarginTop(int top);
     setImgTitleMarginTop(int top);
 ```
-set  (stateBar height + TitleMarginTop) for img or text
+set  (stateBar height + TitleMarginTop) for img and text
+
+# Implementation details
+Most of the code is copied from the original Support Library classes, it only add support two view move and zoom.
