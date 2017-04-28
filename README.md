@@ -1,5 +1,6 @@
 # CollapsingImgText
 use in AppBarLayout, Supports picture and text offset, zoom and fixed in title. it's a RelativeLayout
+[中文说明]：http://www.jianshu.com/p/28daad1a1e94
 
 # example
 ![image](https://github.com/hu5080126/CollapsingImgText/blob/master/readmeImg/collapsing.gif)
@@ -8,7 +9,7 @@ use in AppBarLayout, Supports picture and text offset, zoom and fixed in title. 
 If you are using Gradle and the JCenter Maven Repository, installing the library is as simple as adding a new dependency statement.
 
 ```
-compile 'com.yahui:collapsingImageText:0.1.2'
+compile 'com.yahui:collapsingImageText:0.1.3'
 ```
 
 # usage
@@ -79,12 +80,19 @@ The library use in AppBarLayout, extends RelativeLayout
     app:img_margin_left="10dp"      //The text view final moving to the left margin of img
     app:img_margin_top="10dp"       //The text view final moving to the top margin of img
 ```
-if you set  android:fitsSystemWindows="true", you may be need invoke following method 
+### java method
 ```
-    setTextTitleMarginTop(int top);
-    setImgTitleMarginTop(int top);
+setImgTitleMarginTop(int top)
+    
+ setImgTitleMarginLeft(int left)
+    
+ setTextTitleMarginTop(int top) ;
+    
+ setImgTextMarginLeft(int left) ;
+
+ setStateBarHeight(int stateBarHeight)；//set stateBar hegiht
 ```
-set  (stateBar height + TitleMarginTop) for img and text
+if you set  android:fitsSystemWindows="true", you may be need invoke setStateBarHeight(int statusbarHeight) set statusbarHeight;
 
 # Implementation details
 Most of the code is copied from the original Support Library classes, it only add support two view move and zoom.
