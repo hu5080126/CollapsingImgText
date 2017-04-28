@@ -1,6 +1,7 @@
 # CollapsingImgText
 use in AppBarLayout, Supports picture and text offset, zoom and fixed in title. it's a RelativeLayout
-[中文说明]：http://www.jianshu.com/p/28daad1a1e94
+
+## [中文说明](http://www.jianshu.com/p/28daad1a1e94)
 
 # example
 ![image](https://github.com/hu5080126/CollapsingImgText/blob/master/readmeImg/collapsing.gif)
