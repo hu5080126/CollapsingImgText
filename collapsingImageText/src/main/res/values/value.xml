@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CollapsingImageLayout">
+        <attr name="title_id" format="reference"/>
+        <attr name="img_id" format="reference"/>
+        <attr name="text_id" format="reference"/>
+        <attr name="text_scale" format="float"/>
+        <attr name="text_margin_left" format="dimension"/>
+        <attr name="text_margin_top" format="dimension"/>
+        <attr name="img_scale" format="float"/>
+        <attr name="img_margin_left" format="dimension"/>
+        <attr name="img_margin_top" format="dimension"/>
+    </declare-styleable>
+    <item name="view_helper" type="id"/>
+</resources>
