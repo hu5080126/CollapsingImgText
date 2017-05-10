@@ -25,6 +25,7 @@ public class CollapsingImageTextLayout extends RelativeLayout {
     private View mTitle, mImg, mText;
     private boolean isGetView = true;
     private int mTitleHeight = 0;
+    private int mStateHeight = 0;
     
     
     public CollapsingImageTextLayout(Context context) {
@@ -88,13 +89,29 @@ public class CollapsingImageTextLayout extends RelativeLayout {
         }
         
         if (mImg != null) {
-            getViewOffsetHelper(mImg).onViewLayout(mImgMarginLeft, mImgMarginTop);
+            ViewHelper mImgHelper = getViewOffsetHelper(mImg);
+            mImgHelper.onViewLayout(mImgMarginLeft, mImgMarginTop);
+            mImgHelper.setMaxOffset(getMaxOffset(mImgHelper, mImgScale));
             this.bringChildToFront(mImg);
         }
         
         if (mText != null) {
-            getViewOffsetHelper(mText).onViewLayout(mTitleMarginLeft, mTitleMarginTop);
+            ViewHelper mTextHelper = getViewOffsetHelper(mText);
+            mTextHelper.onViewLayout(mTitleMarginLeft, mTitleMarginTop);
+            mTextHelper.setMaxOffset(getMaxOffset(mTextHelper, mTextScale));
             this.bringChildToFront(mText);
+        }
+        
+        if (mText != null && mImg != null) {
+            ViewHelper mImgHelper = getViewOffsetHelper(mImg);
+            ViewHelper mTextHelper = getViewOffsetHelper(mText);
+            if (mImgHelper.getMaxOffset() > mTextHelper.getMaxOffset()) {
+                mImgHelper.setSynOffset(mImgHelper.getMaxOffset() / (mTextHelper.getMaxOffset() * 1f) - 1);
+                mTextHelper.setSynOffset(0f);
+            } else {
+                mTextHelper.setSynOffset(mTextHelper.getMaxOffset() / (mImgHelper.getMaxOffset() * 1f) - 1);
+                mImgHelper.setSynOffset(0f);
+            }
         }
     }
     
@@ -160,27 +177,32 @@ public class CollapsingImageTextLayout extends RelativeLayout {
                 constrain(-verticalOffset, 0, getMaxOffsetForPinChild(child)));
     }
     
-    private void setTopAndBottomOffset(View child, int verticalOffset, float scale) {
+    private void setTopAndBottomOffsetScale(View child, int verticalOffset) {
         ViewHelper viewHelper = (ViewHelper) child.getTag(R.id.view_helper);
-        viewHelper.setTopAndBottomOffset(
-                constrain(-verticalOffset - getMaxOffset(viewHelper, scale),
-                        0));
+        int synOffset = (int) (verticalOffset * viewHelper.getSynOffset());
+        int realOffset = constrain(-(verticalOffset + synOffset) - viewHelper.getMaxOffset(), 0);
+        realOffset = (realOffset == 0) ? synOffset : -verticalOffset - viewHelper.getMaxOffset();
+        viewHelper.setTopAndBottomOffset(realOffset);
     }
     
     private void setLeftAndRightOffset(View child, int verticalOffset, float scale) {
         ViewHelper viewHelper = (ViewHelper) child.getTag(R.id.view_helper);
-        int maxOffsetDistance = getMaxOffset(viewHelper, scale);
+        int maxOffsetDistance = viewHelper.getMaxOffset();
+        verticalOffset += verticalOffset * viewHelper.getSynOffset();
         int maxLeft = viewHelper.getLayoutLeft()
                 + (viewHelper.getViewWidth() - viewHelper.getScaleViewWidth(scale))
                 - viewHelper.getMarginTitleLeft();
         int realOffset = (int) (maxLeft * 1.0f / (maxOffsetDistance * 1.0f) * verticalOffset);
-        realOffset = constrain(realOffset, -maxLeft, maxLeft);
+        realOffset = (maxLeft >= 0)
+                ? (realOffset <= -maxLeft ? -maxLeft : realOffset)
+                : (realOffset >= -maxLeft ? -maxLeft : realOffset);
         viewHelper.setLeftAndRightOffset(realOffset);
     }
     
     private void setViewScale(View child, int verticalOffset, float scale) {
         ViewHelper viewHelper = (ViewHelper) child.getTag(R.id.view_helper);
         int maxOffsetDistance = getMaxOffset(viewHelper, scale);
+        verticalOffset += verticalOffset * viewHelper.getSynOffset();
         float realScale = -verticalOffset - maxOffsetDistance > 0 ? scale : verticalOffset == 0 ? 1f : 0f;
         if (realScale == 0) {
             realScale = (maxOffsetDistance + verticalOffset * (1 - scale)) / (maxOffsetDistance * 1f);
@@ -195,6 +217,7 @@ public class CollapsingImageTextLayout extends RelativeLayout {
         return viewHelper.getLayoutBottom() - viewHelper.getScaleViewHeight(scale) - offsetTitleDistance - marginTop;
     }
     
+    
     private class OffsetListenerImp implements AppBarLayout.OnOffsetChangedListener {
         @Override
         public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
@@ -202,12 +225,12 @@ public class CollapsingImageTextLayout extends RelativeLayout {
                 setTopAndBottomOffset(mTitle, verticalOffset);
             }
             if (mText != null) {
-                setTopAndBottomOffset(mText, verticalOffset, mTextScale);
+                setTopAndBottomOffsetScale(mText, verticalOffset);
                 setLeftAndRightOffset(mText, verticalOffset, mTextScale);
                 setViewScale(mText, verticalOffset, mTextScale);
             }
             if (mImg != null) {
-                setTopAndBottomOffset(mImg, verticalOffset, mImgScale);
+                setTopAndBottomOffsetScale(mImg, verticalOffset);
                 setLeftAndRightOffset(mImg, verticalOffset, mImgScale);
                 setViewScale(mImg, verticalOffset, mImgScale);
             }
@@ -236,5 +259,9 @@ public class CollapsingImageTextLayout extends RelativeLayout {
         if (mText != null) {
             getViewOffsetHelper(mText).setMarginTitleLeft(left);
         }
+    }
+    
+    public void setStateBarHeight(int stateBarHeight) {
+        mStateHeight = stateBarHeight;
     }
 }

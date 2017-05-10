@@ -20,6 +20,8 @@ public class ViewHelper {
     private int mOffsetLeft;
     
     private int mMarginTitleLeft, mMarginTitleTop;
+    private int mMaxOffset;
+    private float mSynOffset;
     
     public ViewHelper(View view) {
         mView = view;
@@ -121,5 +123,20 @@ public class ViewHelper {
     
     public void setMarginTitleTop(int mMarginTitleTop) {
         this.mMarginTitleTop = mMarginTitleTop;
+    }
+    public int getMaxOffset() {
+        return mMaxOffset;
+    }
+    
+    public void setMaxOffset(int mMaxOffset) {
+        this.mMaxOffset = mMaxOffset;
+    }
+    
+    public float getSynOffset() {
+        return mSynOffset;
+    }
+    
+    public void setSynOffset(float mSynOffset) {
+        this.mSynOffset = mSynOffset;
     }
 }

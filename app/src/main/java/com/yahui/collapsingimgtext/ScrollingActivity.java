@@ -7,13 +7,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.yahui.collapsingimagetext.CollapsingImageTextLayout;
+
 public class ScrollingActivity extends AppCompatActivity {
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scrolling);
-        
+        CollapsingImageTextLayout collapsingImageTextLayout = (CollapsingImageTextLayout) findViewById(R.id.coll);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -22,5 +24,8 @@ public class ScrollingActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+        collapsingImageTextLayout.setStateBarHeight(20);
     }
+    
+
 }

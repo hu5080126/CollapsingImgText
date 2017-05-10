@@ -12,9 +12,12 @@
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/app_bar_height"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:theme="@style/AppTheme.AppBarOverlay"
+        android:fitsSystemWindows="true"
+        >
 
         <com.yahui.collapsingimagetext.CollapsingImageTextLayout
+            android:id="@+id/coll"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
@@ -49,11 +52,10 @@
                 android:id="@+id/test_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/test_img"
+                android:layout_below="@+id/test_img"
                 android:text="MoveText"
                 android:textSize="20sp"
-                android:layout_marginTop="30dp"
-                android:layout_marginLeft="30dp"
+                android:layout_marginLeft="25dp"
                 android:layout_centerVertical="true"
                 />
 

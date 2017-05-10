@@ -28,7 +28,7 @@ dependencies {
     compile 'com.android.support:design:25.0.0'
 }
 
-version = "0.1.2"
+version = "0.1.4"
 
 def siteUrl = 'https://github.com/hu5080126/CollapsingImgText'      // 项目的主页
 def gitUrl = 'https://github.com/hu5080126/CollapsingImgText.git'   // Git仓库的url
