@@ -10,7 +10,7 @@ use in AppBarLayout, Supports picture and text offset, zoom and fixed in title. 
 If you are using Gradle and the JCenter Maven Repository, installing the library is as simple as adding a new dependency statement.
 
 ```
-compile 'com.yahui:collapsingImageText:0.1.3'
+compile 'com.yahui:collapsingImageText:0.1.4'
 ```
 
 # usage
